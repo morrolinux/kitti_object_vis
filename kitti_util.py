@@ -252,7 +252,7 @@ class Calibration(object):
             Output: nx2 points in image2 coord.
         """
         pts_3d_rect = self.cart2hom(pts_3d_rect)
-        pts_2d = np.dot(pts_3d_rect, np.transpose(self.P))  # nx3
+        pts_2d = np.matmul(self.P, pts_3d_rect.T).T  # nx3
         pts_2d[:, 0] /= pts_2d[:, 2]
         pts_2d[:, 1] /= pts_2d[:, 2]
         return pts_2d[:, 0:2]
